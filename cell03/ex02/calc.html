@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>It's over 9000 - Calculator</title>
+
+    <style>
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+        }
+
+        .calculator {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 8px 20px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        input, select {
+            padding: 10px;
+            margin: 5px;
+            font-size: 16px;
+        }
+
+        input[type="submit"] {
+            margin-top: 10px;
+            cursor: pointer;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #217dbb;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <h2>Basic Calculator</h2>
+
+        <form id="calcForm">
+            <input type="text" id="left" placeholder="Left number">
+            
+            <select id="operator">
+                <option value="+">+</option>
+                <option value="-">-</option>
+                <option value="*">*</option>
+                <option value="/">/</option>
+                <option value="%">%</option>
+            </select>
+
+            <input type="text" id="right" placeholder="Right number">
+            <br>
+            <input type="submit" value="Try me!">
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById("calcForm");
+
+        // เตือนทุก 30 วินาที
+        setInterval(function () {
+            alert("Please, use me...");
+        }, 30000);
+
+        form.addEventListener("submit", function (e) {
+            e.preventDefault(); // ไม่ให้หน้ารีเฟรช
+
+            const left = document.getElementById("left").value;
+            const right = document.getElementById("right").value;
+            const op = document.getElementById("operator").value;
+
+            // ตรวจว่าเป็นจำนวนเต็ม >= 0 หรือไม่
+            if (!isValid(left) || !isValid(right)) {
+                alert("Error :(");
+                return;
+            }
+
+            const a = parseInt(left);
+            const b = parseInt(right);
+
+            // หารหรือ modulo ด้วย 0
+            if ((op === "/" || op === "%") && b === 0) {
+                alert("It's over 9000!");
+                console.log("It's over 9000!");
+                return;
+            }
+
+            let result;
+
+            switch (op) {
+                case "+":
+                    result = a + b;
+                    break;
+                case "-":
+                    result = a - b;
+                    break;
+                case "*":
+                    result = a * b;
+                    break;
+                case "/":
+                    result = a / b;
+                    break;
+                case "%":
+                    result = a % b;
+                    break;
+            }
+
+            alert("Result: " + result);
+            console.log("Result:", result);
+        });
+
+        function isValid(value) {
+            return /^\d+$/.test(value);
+        }
+    </script>
+
+</body>
+</html>
